@@ -71,6 +71,7 @@ void game_play()
     {
    	    ch=_getch();
     }
+    if(ch=='p')continue_move = 'p';
     if(ch=='a'&&continue_move=='d'||ch=='d'&&continue_move=='a')ch=continue_move;
     else if(ch=='w'&&continue_move=='z'||ch=='z'&&continue_move=='w')ch=continue_move;
     if(ch=='a'||ch=='d'||ch=='w'||ch=='z')continue_move=ch;     
@@ -82,20 +83,29 @@ void game_play()
    	    case 'z':snake_heady++;break;//to move snake down.
    	    default:break;
     }
-    move_seg(prevx,prevy);
-   if(foodx==snake_headx&&foody==snake_heady)
-   	{
-	   food_coordinates();score++;
-	   vector<int>v;v.push_back(snake_headx); v.push_back(snake_heady);
-	   snake_seg.push_back(v);  
-	}
-   if(snake_headx==boundary_width-1||snake_heady==boundary_height-1||snake_heady==0||snake_headx==0)
-   	end_game=1;
+    if(continue_move!='p')
+    {
+        move_seg(prevx,prevy);
+        if(foodx==snake_headx&&foody==snake_heady)
+   	    {
+	       food_coordinates();score++;
+	       vector<int>v;v.push_back(snake_headx); v.push_back(snake_heady);
+	       snake_seg.push_back(v);  
+	    }
+       if(snake_headx==boundary_width-1||snake_heady==boundary_height-1||snake_heady==0||snake_headx==0)
+   	    end_game=1;
+   	}
 }
 
 //main function to drive whole game.
 int main()
 {
+	cout<<"Instructions to play"<<endl;
+	cout<<"1. Press w to move up."<<endl;
+	cout<<"2. Press z to move down."<<endl;
+	cout<<"3. Press a to move left."<<endl;
+	cout<<"4. Press d to move right."<<endl;
+	cout<<"5. Press p to pause the game and any other button above to resume."<<endl<<endl;
 	cout<<"if you want default boundary size press d"<<endl;
 	cout<<"otherwise press a to customise boundary size"<<endl;
 	char c;cin>>c;
